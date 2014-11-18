@@ -1,0 +1,37 @@
+h1 manage.html
+
+请输入基础数据路径：
+br
+input#basedatapath.form-control(ng-model='BasePath')
+.text-danger
+  span {{error_text}}
+  
+br
+br
+  
+table.table.table-striped
+  tr
+    th id
+    th 名称
+    th 图片
+    th 图片名称
+    th 中奖人数
+    th 是否一次抽完
+    th 描述
+    th 是否播放音乐
+  tr(ng-repeat='prize in prizes')
+    td {{prize.id}}
+    td {{prize.name}}
+    td {{prize.image}}
+    td {{prize.titleImage}}
+    td {{prize.capacity}}
+    td {{prize.complete_once}}
+    td {{prize.desc}}
+    td {{prize.music}}
+  
+table.table.table-striped
+  tr
+    th 奖号区间
+  tr(ng-repeat='area in baseCandidates')
+    th {{area.start}} - {{area.end}}
+    

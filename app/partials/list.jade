@@ -1,0 +1,16 @@
+h1 list.act
+
+br
+  
+table.table.table-striped
+  tr
+    th id
+    th name
+    th image
+    th winners
+  tr(ng-repeat='prize in prizes')
+    td {{prize.id}}
+    td {{prize.name}}
+    td {{prize.image}}
+    td
+      span(ng-repeat='slot in prize.slots') {{slot.number}}&nbsp;&nbsp;

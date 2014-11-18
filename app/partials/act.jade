@@ -1,0 +1,24 @@
+div(ng-keydown='act($event)')
+  h1 act.html
+
+  #prize
+    h4 prize area
+    h6 {{prize.id}}
+    h6 {{prize.name}}
+    h6 {{prize.desc}}
+    h6 {{prize.image}}
+    h6 是否一次抽完：{{prize.complete_once}}
+    h6 中奖人数：{{prize.capacity}}
+    
+  br
+    
+  #act
+    h4 act area
+    
+    .row.span4(ng-repeat='slot in prize.slots', ng-class='getSlotClass(slot.state)')
+      span(ng-click='changeSlotState(slot)')
+        h5 {{slot.id}} - {{slot.number}}
+        
+    br
+      
+    input#act(value='{{actButtonValue}}', type='button')

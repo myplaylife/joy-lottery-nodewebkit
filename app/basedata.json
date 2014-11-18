@@ -1,0 +1,65 @@
+{
+  "prizes" : [
+    {
+      "id":0,
+      "titleImage":"5等奖名称图片",
+      "name":"五等奖",
+      "capacity":10,
+      "complete_once":true,
+      "desc":"【太1:1】 亚伯拉罕的后裔，大卫的子孙，耶稣基督的家谱。",
+      "image":"image5",
+      "music":true
+    },
+    {
+      "capacity":8,
+      "complete_once":true,
+      "desc":"【太1:21】 她将要生一个儿子。你要给他起名叫耶稣。因他要将自己的百姓从罪恶里救出来。",
+      "id":1,
+      "image":"image4",
+      "music":true,
+      "name":"四等奖",
+      "titleImage":"4等奖名称图片"
+    },
+    {
+      "capacity":5,
+      "complete_once":true,
+      "desc":"【太5:3】 虚心的人有福了，因为天国是他们的。",
+      "id":2,
+      "image":"image3",
+      "music":true,
+      "name":"三等奖等奖",
+      "titleImage":"3等奖名称图片"
+    },
+    {
+      "capacity":3,
+      "complete_once":false,
+      "desc":"【太5:18】 我实在告诉你们，就是到天地都废去了，律法的一点一画也不能废去，都要成全。",
+      "id":3,
+      "image":"image2",
+      "music":true,
+      "name":"二等奖等奖",
+      "titleImage":"2等奖名称图片"
+    },
+    {
+      "capacity":1,
+      "complete_once":false,
+      "desc":"【太5:18】 我实在告诉你们，就是到天地都废去了，律法的一点一画也不能废去，都要成全。",
+      "id":4,
+      "image":"image1",
+      "music":true,
+      "name":"一等奖等奖",
+      "titleImage":"1等奖名称图片"
+    }
+  ],
+
+  "baseCandidates" : [
+    {
+      "start"   : 1,
+      "end"     : 151
+    },
+    {
+      "start"   : 150,
+      "end"     : 300
+    }
+  ]
+}
