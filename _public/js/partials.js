@@ -45,6 +45,7 @@ angular.module('partials', [])
 '',
 '<h1>manage.html</h1>请输入基础数据路径：<br>',
 '<input id="basedatapath" ng-model="BasePath" class="form-control">',
+'<div class="text-info"><span>基础数据文件路径：{{BasePath}}/basedata.json</span></div>',
 '<div class="text-danger"><span>{{error_text}}</span></div><br><br>',
 '<table class="table table-striped">',
 '  <tr>',

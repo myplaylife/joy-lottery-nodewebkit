@@ -123,7 +123,7 @@ angular.module('app.controllers', [])
   $scope.$watch('BasePath', (path) ->
     fs = require 'fs'
 
-    if fs.existsSync path + BasedataPath
+    if fs.existsSync path + BasedataFile
       fs.writeFileSync ConfigPath, path
       $rootScope.BasePath = path
       WorkspaceService.updatePathConfig()

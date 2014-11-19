@@ -17,7 +17,6 @@ config =
       40 : "/act"
 
 ConfigPath = './JoyLotteryPath'
-BasedataPath = '/basedata'
 BasedataFile = '/basedata.json'
 WorkspacePath = '/workspace'
 

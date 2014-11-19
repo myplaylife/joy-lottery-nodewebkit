@@ -23,7 +23,7 @@ angular.module('app.services', [])
     "route" : (event) ->
       if event.altKey
         fs = require 'fs'
-        if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath) or !(fs.existsSync $rootScope.BasedataPath)
+        if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath) 
           $location.path '/manage'
           return
 
@@ -331,13 +331,9 @@ angular.module('app.services', [])
   'updatePathConfig' : ->
     if $rootScope.BasePath
       fs = require 'fs'
-      $rootScope.BasedataPath = $rootScope.BasePath + BasedataPath
-      $rootScope.BasedataFile = $rootScope.BasedataPath + BasedataFile
+      $rootScope.BasedataFile = $rootScope.BasePath + BasedataFile
       $rootScope.WorkspacePath = $rootScope.BasePath + WorkspacePath
       if !fs.existsSync $rootScope.WorkspacePath
         fs.mkdirSync $rootScope.WorkspacePath
-      if !fs.existsSync $rootScope.BasedataPath
-        fs.mkdirSync $rootScope.BasedataPath
-
 
 ])

@@ -3,6 +3,8 @@ h1 manage.html
 请输入基础数据路径：
 br
 input#basedatapath.form-control(ng-model='BasePath')
+.text-info
+  span 基础数据文件路径：{{BasePath}}/basedata.json
 .text-danger
   span {{error_text}}
   
