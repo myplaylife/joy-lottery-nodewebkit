@@ -15,8 +15,9 @@ angular.module('app.services', [])
   '$rootScope'
   '$route'
   'LotteryDao'
+  '$modal'
 
-  ($location, WorkspaceService, $rootScope, $route, LotteryDao) ->
+  ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal) ->
 
     "redirect_rule" : config.redirect
 
@@ -24,15 +25,27 @@ angular.module('app.services', [])
       if event.altKey
         fs = require 'fs'
 
+        # alt + o
+        if ($location.path() == '/act') and (event.keyCode == 79)
+          $rootScope.modalInstance = $modal.open
+            template : "<img ng-src='{{image}}' width='500px' height='500px'/>"
+            controller : "ModalCtrl"
+            size : "sm"
+            resolve :
+              image : ->
+                WorkspaceService.getActivePrize().image
+          $rootScope.modalInstance.result.then(
+            -> ''
+            ,
+            -> $rootScope.modalOpen = false
+          )
+          return
+
         # alt + s
         if ($location.path() == '/act') and (event.keyCode == 83)
           LotteryDao.saveWorkspace()
+          return
 
-        # alt + o
-        # if ($location.path() == '/act') and (event.keyCode == 79)
-          # alert $("#myModal").html()
-          # $("#myModal").modal 'toggle'
-          # return;
 
         if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath)
           $location.path '/manage'

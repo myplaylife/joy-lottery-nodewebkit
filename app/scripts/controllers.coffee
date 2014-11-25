@@ -23,6 +23,11 @@ angular.module('app.controllers', [])
 
   $scope.keydown = (event) ->
 
+    # delete key
+    if $rootScope.modalOpen or (event.keyCode == 8)
+      event.preventDefault()
+      return
+
     LotteryRoute.route event
 
     # 抽奖的动作，500ms之内不能执行第二次
@@ -41,7 +46,7 @@ angular.module('app.controllers', [])
       timer = $timeout ( -> $rootScope.isAct = true ), 500
 
 
-    if event.keyCode == 27
+    if (event.keyCode == 27)
       $location.path '/welcome'
 
 ])
@@ -70,8 +75,9 @@ angular.module('app.controllers', [])
   '$scope'
   'WorkspaceService'
   'LotteryDao'
+  '$modal'
 
-($rootScope, $scope, WorkspaceService, LotteryDao) ->
+($rootScope, $scope, WorkspaceService, LotteryDao, $modal) ->
 
   $scope.prize = WorkspaceService.getActivePrize()
 
@@ -84,6 +90,19 @@ angular.module('app.controllers', [])
 
   $scope.getSlotClass = (slotState) ->
     style = 'chosen' if slotState == 2
+
+])
+
+.controller('ModalCtrl', [
+  '$scope'
+  '$modalInstance'
+  'image'
+  '$rootScope'
+
+($scope, $modalInstance, image, $rootScope) ->
+
+  $scope.image = image
+  $rootScope.modalOpen = true
 
 ])
 

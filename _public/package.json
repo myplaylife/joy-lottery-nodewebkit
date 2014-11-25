@@ -23,8 +23,8 @@
     "position": "center",
     "width": 1024,
     "height": 768,
-    "min_width": 1024,
-    "min_height": 768,
+    "min_width": 512,
+    "min_height": 348,
     "resizable": true,
     "always-on-top": false,
     "fullscreen": false

@@ -2,29 +2,20 @@ angular.module('partials', [])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/act.html', [
 '',
-'<div ng-keydown="act($event)">',
-'  <h1>act.html</h1>',
-'  <div id="prize">',
-'    <h4>prize area</h4>',
-'    <h6>{{prize.id}}</h6>',
-'    <h6>{{prize.name}}</h6>',
-'    <h6>{{prize.desc}}</h6>',
-'    <h6>是否一次抽完：{{prize.complete_once}}</h6>',
-'    <h6>中奖人数：{{prize.capacity}}</h6><img ng-src="{{prize.image}}" width="50px" height="50px">',
-'  </div><br>',
-'  <div id="act">',
-'    <h4>act area</h4>',
-'    <div id="hehe" ng-repeat="slot in prize.slots" ng-class="getSlotClass(slot.state)" class="row span4"><span ng-click="changeSlotState(slot)">',
-'        <h5>{{slot.id}} - {{slot.number}}</h5></span></div>',
-'  </div>',
-'</div>',
-'<div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">',
-'  <div class="modal-dialog">',
-'    <div class="modal-content">',
-'      <p>hehehe</p>',
-'    </div>',
-'  </div>',
-'</div>',''].join("\n"));
+'<h1>act.html</h1>',
+'<div id="prize">',
+'  <h4>prize area</h4>',
+'  <h6>{{prize.id}}</h6>',
+'  <h6>{{prize.name}}</h6>',
+'  <h6>{{prize.desc}}</h6>',
+'  <h6>是否一次抽完：{{prize.complete_once}}</h6>',
+'  <h6>中奖人数：{{prize.capacity}}</h6><img ng-src="{{prize.image}}" width="50px" height="50px">',
+'</div><br>',
+'<div id="act">',
+'  <h4>act area</h4>',
+'  <div id="hehe" ng-repeat="slot in prize.slots" ng-class="getSlotClass(slot.state)" class="row span4"><span ng-click="changeSlotState(slot)">',
+'      <h5>{{slot.id}} - {{slot.number}}</h5></span></div>',
+'</div><br>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/list.html', [
@@ -40,7 +31,7 @@ angular.module('partials', [])
 '  <tr ng-repeat="prize in prizes">',
 '    <td>{{prize.id}}</td>',
 '    <td>{{prize.name}}</td>',
-'    <td>{{prize.image}}</td>',
+'    <td><img ng-src="{{prize.image" width="50px" height="50px"></td>',
 '    <td><span ng-repeat="slot in prize.slots">{{slot.number}}&nbsp;&nbsp;</span></td>',
 '  </tr>',
 '</table>',''].join("\n"));
