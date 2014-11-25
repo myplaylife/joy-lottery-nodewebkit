@@ -19,6 +19,7 @@ config =
 ConfigPath = './JoyLotteryPath'
 BasedataFile = '/basedata.json'
 WorkspacePath = '/workspace'
+ImagePath = '/image'
 
 
 Array.prototype.contains = (element) ->

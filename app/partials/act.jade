@@ -6,19 +6,31 @@ div(ng-keydown='act($event)')
     h6 {{prize.id}}
     h6 {{prize.name}}
     h6 {{prize.desc}}
-    h6 {{prize.image}}
     h6 是否一次抽完：{{prize.complete_once}}
     h6 中奖人数：{{prize.capacity}}
+    img(ng-src="{{prize.image}}", width="50px", height="50px")
     
   br
     
   #act
     h4 act area
     
-    .row.span4(ng-repeat='slot in prize.slots', ng-class='getSlotClass(slot.state)')
+    #hehe.row.span4(ng-repeat='slot in prize.slots', ng-class='getSlotClass(slot.state)')
       span(ng-click='changeSlotState(slot)')
         h5 {{slot.id}} - {{slot.number}}
-        
-    br
-      
-    input#act(value='{{actButtonValue}}', type='button')
+
+#myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      p hehehe
+    //-     .modal-header
+    //-       button.close(type="button", data-dismiss="modal")
+    //-         span(aria-hidden="true") &times;
+    //-         span.sr-only Close
+    //-       h4#myModalLabel.modal-title Modal title
+    //-     .modal-body
+    //-       p One fine body&helloip;
+    //-     .modal-footer
+    //-       button.btn.btn-default(type="button", data-dismiss="modal") Close
+    //-       button.btn.btn-primary(type="button") Save changes
+  

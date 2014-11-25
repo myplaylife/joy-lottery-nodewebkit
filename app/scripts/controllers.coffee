@@ -75,7 +75,6 @@ angular.module('app.controllers', [])
 
   $scope.prize = WorkspaceService.getActivePrize()
 
-  $scope.actButtonValue = "开始"
   $rootScope.actScope = $scope
 
   $scope.changeSlotState = (slot) ->

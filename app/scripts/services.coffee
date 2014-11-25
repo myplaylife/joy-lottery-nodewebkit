@@ -23,7 +23,18 @@ angular.module('app.services', [])
     "route" : (event) ->
       if event.altKey
         fs = require 'fs'
-        if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath) 
+
+        # alt + s
+        if ($location.path() == '/act') and (event.keyCode == 83)
+          LotteryDao.saveWorkspace()
+
+        # alt + o
+        # if ($location.path() == '/act') and (event.keyCode == 79)
+          # alert $("#myModal").html()
+          # $("#myModal").modal 'toggle'
+          # return;
+
+        if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath)
           $location.path '/manage'
           return
 
@@ -103,6 +114,7 @@ angular.module('app.services', [])
         'activate'        : false
 
       for prize in $rootScope.Workspace.prizes
+        prize.image = $rootScope.ImagePath + "/" + prize.image
         prize.slots = []
         for i in [1..prize.capacity]
           slot =
@@ -148,7 +160,7 @@ angular.module('app.services', [])
       activeId = if current < count then current + 1 else 0
     else
       activeId = if current == 0 then count else current - 1
-    LotteryDao.saveWorkspace()
+    # LotteryDao.saveWorkspace()
     activeId
 
   'getActivePrize' : ->
@@ -159,7 +171,6 @@ angular.module('app.services', [])
   # 在所有
   'start' : ->
     prize = this.getActivePrize()
-    i = 0
     random = this.random
     candidates = this.candidatesArray()
     try
@@ -167,110 +178,75 @@ angular.module('app.services', [])
         size = prize.slots.length
         if prize.slots[0].state != 1
           prize.slots[0].interval = $interval ( -> prize.slots[0].number = random(candidates) ), 10
-          i += 1
         if prize.slots[1].state != 1
           prize.slots[1].interval = $interval ( -> prize.slots[1].number = random(candidates) ), 10
-          i += 1
         if prize.slots[2].state != 1
           prize.slots[2].interval = $interval ( -> prize.slots[2].number = random(candidates) ), 10
-          i += 1
         if prize.slots[3].state != 1
           prize.slots[3].interval = $interval ( -> prize.slots[3].number = random(candidates) ), 10
-          i += 1
         if prize.slots[4].state != 1
           prize.slots[4].interval = $interval ( -> prize.slots[4].number = random(candidates) ), 10
-          i += 1
         if prize.slots[5].state != 1
           prize.slots[5].interval = $interval ( -> prize.slots[5].number = random(candidates) ), 10
-          i += 1
         if prize.slots[6].state != 1
           prize.slots[6].interval = $interval ( -> prize.slots[6].number = random(candidates) ), 10
-          i += 1
         if prize.slots[7].state != 1
           prize.slots[7].interval = $interval ( -> prize.slots[7].number = random(candidates) ), 10
-          i += 1
         if prize.slots[8].state != 1
           prize.slots[8].interval = $interval ( -> prize.slots[8].number = random(candidates) ), 10
-          i += 1
         if prize.slots[9].state != 1
           prize.slots[9].interval = $interval ( -> prize.slots[9].number = random(candidates) ), 10
-          i += 1
         if prize.slots[10].state != 1
           prize.slots[10].interval = $interval ( -> prize.slots[10].number = random(candidates) ), 10
-          i += 1
         if prize.slots[11].state != 1
           prize.slots[11].interval = $interval ( -> prize.slots[11].number = random(candidates) ), 10
-          i += 1
         if prize.slots[12].state != 1
           prize.slots[12].interval = $interval ( -> prize.slots[12].number = random(candidates) ), 10
-          i += 1
         if prize.slots[13].state != 1
           prize.slots[13].interval = $interval ( -> prize.slots[13].numberw= random(candidates) ), 10
-          i += 1
         if prize.slots[14].state != 1
           prize.slots[14].interval = $interval ( -> prize.slots[14].number = random(candidates) ), 10
-          i += 1
         if prize.slots[15].state != 1
           prize.slots[15].interval = $interval ( -> prize.slots[15].number = random(candidates) ), 10
-          i += 1
         if prize.slots[16].state != 1
           prize.slots[17].interval = $interval ( -> prize.slots[16].number = random(candidates) ), 10
-          i += 1
         if prize.slots[17].state != 1
           prize.slots[17].interval = $interval ( -> prize.slots[17].number = random(candidates) ), 10
-          i += 1
         if prize.slots[18].state != 1
           prize.slots[18].interval = $interval ( -> prize.slots[18].number = random(candidates) ), 10
-          i += 1
         if prize.slots[19].state != 1
           prize.slots[19].interval = $interval ( -> prize.slots[19].number = random(candidates) ), 10
-          i += 1
         if prize.slots[20].state != 1
           prize.slots[20].interval = $interval ( -> prize.slots[20].number = random(candidates) ), 10
-          i += 1
         if prize.slots[21].state != 1
           prize.slots[21].interval = $interval ( -> prize.slots[21].number = random(candidates) ), 10
-          i += 1
         if prize.slots[22].state != 1
           prize.slots[22].interval = $interval ( -> prize.slots[22].number = random(candidates) ), 10
-          i += 1
         if prize.slots[23].state != 1
           prize.slots[23].interval = $interval ( -> prize.slots[23].number = random(candidates) ), 10
-          i += 1
         if prize.slots[24].state != 1
           prize.slots[24].interval = $interval ( -> prize.slots[24].number = random(candidates) ), 10
-          i += 1
         if prize.slots[25].state != 1
           prize.slots[25].interval = $interval ( -> prize.slots[25].number = random(candidates) ), 10
-          i += 1
         if prize.slots[26].state != 1
           prize.slots[26].interval = $interval ( -> prize.slots[26].number = random(candidates) ), 10
-          i += 1
         if prize.slots[27].state != 1
           prize.slots[27].interval = $interval ( -> prize.slots[27].number = random(candidates) ), 10
-          i += 1
         if prize.slots[28].state != 1
           prize.slots[28].interval = $interval ( -> prize.slots[28].number = random(candidates) ), 10
-          i += 1
         if prize.slots[29].state != 1
           prize.slots[29].interval = $interval ( -> prize.slots[29].number = random(candidates) ), 10
-          i += 1
         if prize.slots[30].state != 1
           prize.slots[30].interval = $interval ( -> prize.slots[30].number = random(candidates) ), 10
-          i += 1
       else
         for slot in prize.slots
           if slot.state == 0 || slot.state == 2
-            # slot.interval = $interval ( -> slot.number++ ), 10
             slot.interval = $interval ( -> slot.number = random(candidates) ), 10
             slot.activate = true
-            i += 1
             break
     catch
     finally
       $rootScope.Workspace.activate = true
-      if i > 0
-        $rootScope.actScope.actButtonValue = "进行中..."
 
   # 轮询所有奖槽，将被激活奖槽的定时器终止
   # 并将奖槽最终的中奖号码写入到winner列表中
@@ -296,7 +272,6 @@ angular.module('app.services', [])
 
     $rootScope.Workspace.activate = false
     # $rootScope.Workspace.candidates = this.candidatesNumbers()
-    $rootScope.actScope.actButtonValue = "开始"
     LotteryDao.saveWorkspace()
 
   # 从号池中去掉已经中奖的号，和弃权的号
@@ -333,6 +308,7 @@ angular.module('app.services', [])
       fs = require 'fs'
       $rootScope.BasedataFile = $rootScope.BasePath + BasedataFile
       $rootScope.WorkspacePath = $rootScope.BasePath + WorkspacePath
+      $rootScope.ImagePath = $rootScope.BasePath + ImagePath
       if !fs.existsSync $rootScope.WorkspacePath
         fs.mkdirSync $rootScope.WorkspacePath
 
