@@ -7,11 +7,11 @@ config =
       39 : "/act"
       40 : "/list"
     "/act" :
-      38 : "/manage"
       40 : "/list"
+      38 : "/list"
     "/list" :
       38 : "/act"
-      40 : "/manage"
+      40 : "/act"
     "/manage" :
       38 : "/list"
       40 : "/act"
