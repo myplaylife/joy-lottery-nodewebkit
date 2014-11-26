@@ -1,0 +1,9 @@
+h1 
+
+br
+  
+table.table.table-striped
+  tr(ng-repeat='h in help')
+    td {{h.key}}
+    td 
+      span(ng-bind-html="h.act")

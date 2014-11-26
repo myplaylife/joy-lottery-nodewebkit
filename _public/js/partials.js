@@ -31,7 +31,7 @@ angular.module('partials', [])
 '  <tr ng-repeat="prize in prizes">',
 '    <td>{{prize.id}}</td>',
 '    <td>{{prize.name}}</td>',
-'    <td><img ng-src="{{prize.image" width="50px" height="50px"></td>',
+'    <td><img ng-src="{{prize.image}}" width="50px" height="50px"></td>',
 '    <td><span ng-repeat="slot in prize.slots">{{slot.number}}&nbsp;&nbsp;</span></td>',
 '  </tr>',
 '</table>',''].join("\n"));
@@ -133,4 +133,15 @@ angular.module('partials', [])
   return $templateCache.put('/partials/welcome.html', [
 '',
 '<h1>welcome.html</h1>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/help.html', [
+'',
+'<h1> </h1><br>',
+'<table class="table table-striped">',
+'  <tr ng-repeat="h in help">',
+'    <td>{{h.key}}</td>',
+'    <td> <span ng-bind-html="h.act"></span></td>',
+'  </tr>',
+'</table>',''].join("\n"));
 }]);

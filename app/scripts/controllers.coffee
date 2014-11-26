@@ -154,3 +154,10 @@ angular.module('app.controllers', [])
   )
 
 ])
+
+.controller('HelpCtrl', [
+  '$scope'
+
+($scope) ->
+  $scope.help = help
+])

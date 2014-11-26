@@ -6,6 +6,7 @@ App = angular.module('app', [
   'ngResource'
   'ngRoute'
   'ui.bootstrap'
+  'ngSanitize'
   'app.services'
   'app.controllers'
   'app.directives'
@@ -26,6 +27,7 @@ App.config([
     .when('/list', {templateUrl: '/partials/list.html', controller: 'ListCtrl'})
     .when('/act', {templateUrl: '/partials/act.html', controller: 'ActCtrl'})
     .when('/manage', {templateUrl: '/partials/manage.html', controller: 'ManageCtrl'})
+    .when('/help', {templateUrl: '/partials/help.html', controller: 'HelpCtrl'})
 
     # Catch all
     .otherwise({redirectTo: '/welcome'})
