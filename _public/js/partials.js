@@ -1,5 +1,16 @@
 angular.module('partials', [])
 .run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/help.html', [
+'',
+'<h1>帮助</h1><br>',
+'<table class="table table-striped">',
+'  <tr ng-repeat="h in help">',
+'    <td>{{h.key}}</td>',
+'    <td> <span ng-bind-html="h.act"></span></td>',
+'  </tr>',
+'</table>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/act.html', [
 '',
 '<h1>act.html</h1>',
@@ -133,15 +144,4 @@ angular.module('partials', [])
   return $templateCache.put('/partials/welcome.html', [
 '',
 '<h1>welcome.html</h1>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/help.html', [
-'',
-'<h1> </h1><br>',
-'<table class="table table-striped">',
-'  <tr ng-repeat="h in help">',
-'    <td>{{h.key}}</td>',
-'    <td> <span ng-bind-html="h.act"></span></td>',
-'  </tr>',
-'</table>',''].join("\n"));
 }]);

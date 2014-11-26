@@ -330,7 +330,7 @@ angular.module('app.services', [])
   'isCurrentPrizeDone' : ->
     prize = this.getActivePrize()
     for slot in prize.slots
-      if slot.state != 1
+      if slot.state == 2
         return false
 
     return true
