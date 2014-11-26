@@ -56,6 +56,8 @@ angular.module('app.services', [])
           return
 
         if $location.path() == '/act'
+          if !WorkspaceService.isCurrentPrizeDone()
+            return
           if event.keyCode == 37
             $rootScope.Workspace.activePrizeId = WorkspaceService.setActivePrizeId false
             $route.reload()
@@ -324,5 +326,13 @@ angular.module('app.services', [])
       $rootScope.ImagePath = $rootScope.BasePath + ImagePath
       if !fs.existsSync $rootScope.WorkspacePath
         fs.mkdirSync $rootScope.WorkspacePath
+
+  'isCurrentPrizeDone' : ->
+    prize = this.getActivePrize()
+    for slot in prize.slots
+      if slot.state != 1
+        return false
+
+    return true
 
 ])
