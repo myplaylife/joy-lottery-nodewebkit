@@ -25,6 +25,12 @@ angular.module('app.services', [])
       if event.altKey
         fs = require 'fs'
 
+        # alt + f
+        if event.keyCode == 70
+          gui = require('nw.gui')
+          win = gui.Window.get()
+          win.toggleKioskMode()
+
         # alt + o
         if ($location.path() == '/act') and (event.keyCode == 79)
           $rootScope.modalInstance = $modal.open
@@ -130,6 +136,8 @@ angular.module('app.services', [])
 
       for prize in $rootScope.Workspace.prizes
         prize.image = $rootScope.ImagePath + "/" + prize.image
+        prize.titleImage = $rootScope.ImagePath + "/" + prize.titleImage
+        prize.started = false
         prize.slots = []
         for i in [1..prize.capacity]
           slot =
@@ -141,6 +149,7 @@ angular.module('app.services', [])
               'activate'  : false
               # 0 - 初始； 1 - 已产生结果； 2 - 需要重抽；
               'state'     : 0
+              'started'   : false
             }
           prize.slots.push slot
       saveWorkspace()
@@ -186,6 +195,7 @@ angular.module('app.services', [])
   # 在所有
   'start' : ->
     prize = this.getActivePrize()
+    prize.started = true
     random = this.random
     candidates = this.candidatesArray()
     try
@@ -258,6 +268,7 @@ angular.module('app.services', [])
           if slot.state == 0 || slot.state == 2
             slot.interval = $interval ( -> slot.number = random(candidates) ), 10
             slot.activate = true
+            slot.started = true
             break
     catch
     finally

@@ -1,5 +1,55 @@
 angular.module('partials', [])
 .run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/act.html', [
+'',
+'<div class="draw_bg">',
+'  <div class="title_bg"></div>',
+'  <div class="row">',
+'    <div class="col-md-2"></div>',
+'    <div class="prize_display col-md-2">',
+'      <div class="prize_display_title"></div>',
+'      <div class="prize_display_image"><img ng-src="{{prize.image}}" class="prize_image"></div>',
+'      <div class="prize_display_description">',
+'        <p class="lead">{{prize.desc}}</p>',
+'      </div>',
+'    </div>',
+'    <div class="col-md-4 draw">',
+'      <div class="rod_area"><img ng-src="{{rod}}" class="rod_image"></div>',
+'      <div class="title_image_area"><img ng-src="{{prize.titleImage}}" class="title_image"></div>',
+'      <SWITCH ng-switch on="prize.complete_once">',
+'        <WHEN ng-switch-when="true">',
+'          <div class="draw_once_area">',
+'            <SWITCH ng-switch on="prize.started">',
+'              <WHEN ng-switch-when="true">',
+'                <div ng-repeat="slot in prize.slots" class="draw_once_single_area">',
+'                  <div ng-click="changeSlotState(slot)" ng-class="getSlotClass(slot)" class="draw_once_single_number">{{slot.number}}</div>',
+'                </div>',
+'              </WHEN>',
+'              <WHEN ng-switch-when="false">',
+'                <div class="draw_image"><img ng-src="images/draw_multi_box_ready.png"><br>（{{prize.capacity}} 名）</div>',
+'              </WHEN>',
+'            </SWITCH>',
+'          </div>',
+'        </WHEN>',
+'        <WHEN ng-switch-when="false"> ',
+'          <div class="draw_multi_area">',
+'            <ul class="draw_multi_single_area">',
+'              <li ng-repeat="slot in prize.slots" ng-click="changeSlotState(slot)" ng-class="getSlotClass(slot)" class="draw_multi_single_number">',
+'                <SWITCH ng-switch on="slot.started">',
+'                  <WHEN ng-switch-when="true"><span>{{slot.number}}</span></WHEN>',
+'                  <WHEN ng-switch-when="false"><span ng-bind-html="space"></span></WHEN>',
+'                </SWITCH>',
+'              </li>',
+'            </ul>',
+'          </div>',
+'        </WHEN>',
+'      </SWITCH>',
+'    </div>',
+'    <div class="col-md-4"></div>',
+'  </div>',
+'</div>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/help.html', [
 '',
 '<h1>帮助</h1><br>',
@@ -9,24 +59,6 @@ angular.module('partials', [])
 '    <td> <span ng-bind-html="h.act"></span></td>',
 '  </tr>',
 '</table>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/act.html', [
-'',
-'<h1>act.html</h1>',
-'<div id="prize">',
-'  <h4>prize area</h4>',
-'  <h6>{{prize.id}}</h6>',
-'  <h6>{{prize.name}}</h6>',
-'  <h6>{{prize.desc}}</h6>',
-'  <h6>是否一次抽完：{{prize.complete_once}}</h6>',
-'  <h6>中奖人数：{{prize.capacity}}</h6><img ng-src="{{prize.image}}" width="50px" height="50px">',
-'</div><br>',
-'<div id="act">',
-'  <h4>act area</h4>',
-'  <div id="hehe" ng-repeat="slot in prize.slots" ng-class="getSlotClass(slot.state)" class="row span4"><span ng-click="changeSlotState(slot)">',
-'      <h5>{{slot.id}} - {{slot.number}}</h5></span></div>',
-'</div><br>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/list.html', [
@@ -143,5 +175,5 @@ angular.module('partials', [])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/welcome.html', [
 '',
-'<h1>welcome.html</h1>',''].join("\n"));
+'<div class="welcome_bg"></div>',''].join("\n"));
 }]);

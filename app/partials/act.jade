@@ -1,21 +1,38 @@
-h1 act.html
-
-#prize
-  h4 prize area
-  h6 {{prize.id}}
-  h6 {{prize.name}}
-  h6 {{prize.desc}}
-  h6 是否一次抽完：{{prize.complete_once}}
-  h6 中奖人数：{{prize.capacity}}
-  img(ng-src="{{prize.image}}", width="50px", height="50px")
-  
-br
-  
-#act
-  h4 act area
-  
-  #hehe.row.span4(ng-repeat='slot in prize.slots', ng-class='getSlotClass(slot.state)')
-    span(ng-click='changeSlotState(slot)')
-      h5 {{slot.id}} - {{slot.number}}
-
-br
+.draw_bg
+  .title_bg
+  .row
+    .col-md-2
+    .prize_display.col-md-2
+      .prize_display_title
+      .prize_display_image
+        img.prize_image(ng-src="{{prize.image}}")
+      .prize_display_description
+        p.lead {{prize.desc}}
+    .col-md-4.draw
+      .rod_area
+        img.rod_image(ng-src="{{rod}}")
+      .title_image_area
+        img.title_image(ng-src="{{prize.titleImage}}")
+      SWITCH(ng-switch, on="prize.complete_once")
+        WHEN(ng-switch-when="true")
+          .draw_once_area
+            SWITCH(ng-switch, on="prize.started")
+              WHEN(ng-switch-when="true")
+                .draw_once_single_area(ng-repeat='slot in prize.slots')
+                  .draw_once_single_number(ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)') {{slot.number}}
+              WHEN(ng-switch-when="false")
+                .draw_image
+                  img(ng-src="images/draw_multi_box_ready.png")
+                  br
+                  （{{prize.capacity}} 名）
+        WHEN(ng-switch-when="false") 
+          .draw_multi_area
+            ul.draw_multi_single_area
+              li.draw_multi_single_number(ng-repeat='slot in prize.slots', ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)')
+                SWITCH(ng-switch, on="slot.started")
+                  WHEN(ng-switch-when="true")
+                    span {{slot.number}}
+                  WHEN(ng-switch-when="false")
+                    span(ng-bind-html="space")
+              
+    .col-md-4
