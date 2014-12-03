@@ -26,10 +26,12 @@ angular.module('app.services', [])
         fs = require 'fs'
 
         # alt + f
-        if event.keyCode == 70
-          gui = require('nw.gui')
-          win = gui.Window.get()
-          win.toggleKioskMode()
+        # if event.keyCode == 70
+          # gui = require('nw.gui')
+          # win = gui.Window.get()
+          # alert win.isFullscreen
+          # win.toggleKioskMode()
+          # win.enterFullscreen()
 
         # alt + o
         if ($location.path() == '/act') and (event.keyCode == 79)

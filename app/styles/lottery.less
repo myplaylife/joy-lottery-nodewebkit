@@ -14,21 +14,21 @@ html, body {
   width : 100%;
   overflow : hidden;
 }
-.welcome_bg {
-  background-image : url("../images/welcome.png");
+.bg {
   background-repeat : no-repeat;
-  background-size : 100% 100%;
   background-origin : border-box;
   width : 1350px;
   height : 800px;
+  background-size : 100% 100%;
+  background-position : center;
+  background-image : url("../images/background.png");
+}
+.welcome_bg {
+  .bg;
+  background-image : url("../images/welcome.png");
 }
 .draw_bg {
-  background-image : url("../images/background.png");
-  background-repeat : no-repeat;
-  background-size : 100% 100%;
-  background-origin : border-box;
-  width : 1350px;
-  height : 800px;
+  .bg;
   padding-top : 20px;
 }
 .title_bg {
@@ -204,4 +204,51 @@ html, body {
   width : @rod_width;
   height : @rod_height;
   // border : 1px solid #000000;
+}
+// list.jade
+.winner_list_bg {
+  .bg;
+  padding-top : 60px;
+}
+.winner_list_area {
+  width : 518px;
+  height : 680px;
+  margin : auto;
+  background-image : url("../images/winner_list.png");
+  background-size : 518px 680px;
+  padding : 80 40 40 40;
+}
+.winner_list {
+  // border : 1px solid #000000;
+  width : 100%;
+  height : 100%;
+  padding-top : 100px;
+}
+.prize_list {
+  // border : 1px solid #000000;
+  text-align : center;
+  margin : auto;
+  width : 80%;
+  position : relative;
+  left : 10px;
+}
+.prize_title > img {
+  // border : 1px solid #000000;
+  width : 97px;
+  height : 34px;
+}
+.prize_winners {
+  background-image : url(../images/winner_list_number_bg_6.png);
+  background-size : 100% 100%;
+  background-origin : padding-box;
+}
+.prize_winners > ul {
+  // border : 1px solid #000000;
+  margin : 7px 10px;
+}
+.prize_winners > ul > li {
+  font-size : 30px;
+  color : red;
+  // border : 1px solid #000000;
+  width : 70px;
 }

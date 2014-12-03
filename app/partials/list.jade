@@ -1,17 +1,24 @@
-h1 list.act
-
-br
-  
-table.table.table-striped
-  tr
-    th id
-    th name
-    th image
-    th winners
-  tr(ng-repeat='prize in prizes')
-    td {{prize.id}}
-    td {{prize.name}}
-    td
-      img(ng-src="{{prize.image}}", width="50px", height="50px")
-    td
-      span(ng-repeat='slot in prize.slots') {{slot.number}}&nbsp;&nbsp;
+.winner_list_bg
+  .winner_list_area
+    .winner_list 
+      .prize_list(ng-repeat='prize in prizes')
+        .prize_title
+          img(ng-src="{{prize.titleImage}}")
+        .prize_winners
+          ul.list-unstyled.list-inline
+            li(ng-repeat='slot in prize.slots')
+              strong {{slot.number}}
+          //- span(ng-repeat='slot in prize.slots') {{slot.number}}&nbsp;&nbsp;
+  //- table.table.table-striped
+  //-   tr
+  //-     th id
+  //-     th name
+  //-     th image
+  //-     th winners
+  //-   tr(ng-repeat='prize in prizes')
+  //-     td {{prize.id}}
+  //-     td {{prize.name}}
+  //-     td
+  //-       img(ng-src="{{prize.image}}", width="50px", height="50px")
+  //-     td
+  //-       span(ng-repeat='slot in prize.slots') {{slot.number}}&nbsp;&nbsp;

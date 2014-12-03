@@ -18,8 +18,8 @@
     "//": "screen settings",
     "title": "my awesome app",
     "icon": "link.png",
-    "toolbar": true,
-    "frame": true,
+    "toolbar": false,
+    "frame": false,
     "position": "center",
     "width": 1008,
     "height": 600,
@@ -27,7 +27,7 @@
     "min_height": 300,
     "resizable": true,
     "always-on-top": false,
-    "fullscreen": false
+    "fullscreen": true
   },
   "dependencies": {
     "nedb": "~0.9.4"
