@@ -7,6 +7,7 @@ App = angular.module('app', [
   'ngRoute'
   'ui.bootstrap'
   'ngSanitize'
+  'ngAnimate'
   'app.services'
   'app.controllers'
   'app.directives'
