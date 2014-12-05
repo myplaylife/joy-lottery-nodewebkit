@@ -36,16 +36,17 @@ angular.module('app.services', [])
         # alt + o
         if ($location.path() == '/act') and (event.keyCode == 79)
           $rootScope.modalInstance = $modal.open
-            template : "<img ng-src='{{image}}' width='500px' height='500px'/>"
-            controller : "ModalCtrl"
-            size : "sm"
+            templateUrl : "/partials/display.html"
+            controller : "DisplayCtrl"
+            size : "bg"
             resolve :
-              image : ->
-                WorkspaceService.getActivePrize().image
+              prize : ->
+                WorkspaceService.getActivePrize()
           $rootScope.modalInstance.result.then(
             -> ''
             ,
             -> $rootScope.modalOpen = false
+            windowClass : ".window_class"
           )
           return
 

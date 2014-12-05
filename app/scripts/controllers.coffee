@@ -128,15 +128,15 @@ angular.module('app.controllers', [])
 
 ])
 
-.controller('ModalCtrl', [
+.controller('DisplayCtrl', [
   '$scope'
   '$modalInstance'
-  'image'
+  'prize'
   '$rootScope'
 
-($scope, $modalInstance, image, $rootScope) ->
+($scope, $modalInstance, prize, $rootScope) ->
 
-  $scope.image = image
+  $scope.prize = prize
   $rootScope.modalOpen = true
 
 ])
