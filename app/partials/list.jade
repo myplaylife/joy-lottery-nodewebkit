@@ -7,4 +7,4 @@
         .prize_winners
           ul.list-unstyled.list-inline
             li(ng-repeat='slot in prize.slots')
-              strong {{slot.number}}
+              strong {{slot.number | winners_filter}}

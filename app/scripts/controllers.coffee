@@ -46,7 +46,7 @@ angular.module('app.controllers', [])
       $rootScope.actScope.rod = "images/rod_2.gif"
       timer = $timeout ( ->
         $rootScope.isAct = true
-        $rootScope.actScope.rod = "images/rod_1.gif"
+        $rootScope.actScope.rod = "images/rod_1.png"
       ), 1000
 
 
@@ -122,7 +122,7 @@ angular.module('app.controllers', [])
         else
           style = 'draw_multi_single_redraw'
 
-  $scope.rod = "images/rod_1.gif"
+  $scope.rod = "images/rod_1.png"
 
   $scope.space = "&nbsp;"
 
