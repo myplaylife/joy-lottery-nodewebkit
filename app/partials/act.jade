@@ -13,26 +13,27 @@
         img.rod_image(ng-src="{{rod}}")
       .title_image_area
         img.title_image(ng-src="{{prize.titleImage}}")
-      SWITCH(ng-switch, on="prize.complete_once")
-        WHEN(ng-switch-when="true")
-          .draw_once_area
-            SWITCH(ng-switch, on="prize.started")
-              WHEN(ng-switch-when="true")
-                .draw_once_single_area(ng-repeat='slot in prize.slots')
-                  .draw_once_single_number(ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)') {{slot.number}}
-              WHEN(ng-switch-when="false")
-                .draw_image
-                  img(ng-src="images/draw_multi_box_ready.png")
-                  br
-                  （{{prize.capacity}} 名）
-        WHEN(ng-switch-when="false") 
-          .draw_multi_area
-            ul.draw_multi_single_area
-              li.draw_multi_single_number(ng-repeat='slot in prize.slots', ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)')
-                SWITCH(ng-switch, on="slot.started")
-                  WHEN(ng-switch-when="true")
-                    span {{slot.number}}
-                  WHEN(ng-switch-when="false")
-                    span(ng-bind-html="space")
+      .draw_area
+        .draw_area_mez
+          SWITCH(ng-switch, on="prize.complete_once")
+            WHEN(ng-switch-when="true")
+              SWITCH(ng-switch, on="prize.started")
+                WHEN(ng-switch-when="true")
+                  ul.list-unstyled.list-inline
+                    li(ng-repeat='slot in prize.slots', ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)')
+                      span {{slot.number}}
+                WHEN(ng-switch-when="false")
+                  .draw_image
+                    img(ng-src="images/draw_multi_box_ready.png")
+                    br
+                    （{{prize.capacity}} 名）
+            WHEN(ng-switch-when="false") 
+              ul.list-unstyled.list-inline
+                li.draw_multi_single_number(ng-repeat='slot in prize.slots', ng-click='changeSlotState(slot)', ng-class='getSlotClass(slot)')
+                  SWITCH(ng-switch, on="slot.started")
+                    WHEN(ng-switch-when="true")
+                      span {{slot.number}}
+                    WHEN(ng-switch-when="false")
+                      span(ng-bind-html="space")
               
     .col-md-4

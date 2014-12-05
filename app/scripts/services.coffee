@@ -230,13 +230,13 @@ angular.module('app.services', [])
         if prize.slots[12].state != 1
           prize.slots[12].interval = $interval ( -> prize.slots[12].number = random(candidates) ), 10
         if prize.slots[13].state != 1
-          prize.slots[13].interval = $interval ( -> prize.slots[13].numberw= random(candidates) ), 10
+          prize.slots[13].interval = $interval ( -> prize.slots[13].number = random(candidates) ), 10
         if prize.slots[14].state != 1
           prize.slots[14].interval = $interval ( -> prize.slots[14].number = random(candidates) ), 10
         if prize.slots[15].state != 1
           prize.slots[15].interval = $interval ( -> prize.slots[15].number = random(candidates) ), 10
         if prize.slots[16].state != 1
-          prize.slots[17].interval = $interval ( -> prize.slots[16].number = random(candidates) ), 10
+          prize.slots[16].interval = $interval ( -> prize.slots[16].number = random(candidates) ), 10
         if prize.slots[17].state != 1
           prize.slots[17].interval = $interval ( -> prize.slots[17].number = random(candidates) ), 10
         if prize.slots[18].state != 1

@@ -94,7 +94,16 @@ angular.module('app.controllers', [])
 
   $scope.getSlotClass = (slot) ->
     if $scope.prize.complete_once
-      style = 'draw_once_single_chosen' if slot.state == 2
+      if $scope.prize.slots.length > 10
+        if slot.state == 2
+          style = 'draw_once_single_chosen_more_10'
+        else
+          style = 'draw_once_single_done_more_10'
+      else
+        if slot.state == 2
+          style = 'draw_once_single_chosen'
+        else
+          style = 'draw_once_single_done'
     else
       if !slot.started
         # 如果只有一个奖品，返回大图标
