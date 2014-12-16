@@ -27,7 +27,7 @@ angular.module('app.services', [])
         fs = require 'fs'
 
         # alt + o
-        if ($location.path() == '/act') and (event.keyCode == 79)
+        if ($location.path() == '/act') and (event.keyCode == 79) and !$rootScope.modalOpen
           $rootScope.modalInstance = $modal.open
             templateUrl : "/partials/display.html"
             controller : "DisplayCtrl"
@@ -174,8 +174,9 @@ angular.module('app.services', [])
   '$rootScope'
   '$interval'
   'LotteryDao'
+  '$timeout'
 
-($rootScope, $interval, LotteryDao) ->
+($rootScope, $interval, LotteryDao, $timeout) ->
 
   # 当前展示的奖品
   # 如果isForward == true，return currentPrizeId+1 if currentPrizeId < maxPrizeId, else 0
@@ -300,6 +301,19 @@ angular.module('app.services', [])
         this.addWaiver slot.number
 
     $rootScope.Workspace.activate = false
+    # celebrate
+    # 为了防止奖槽停止时产生停顿，延迟100毫秒执行celebrate动画
+    $timeout (->
+      if prize.celebrate
+        $(".celebrate").css 'display', 'block'
+        $rootScope.actScope.celebrate_gif = 'images/celebrate.gif'
+        prize.celebrate = false
+        $timeout ( ->
+          $(".celebrate").css 'display', 'none'
+          $rootScope.actScope.celebrate_gif = 'images/transparent.png'
+        ), 1000
+    ), 100
+
     # $rootScope.Workspace.candidates = this.candidatesNumbers()
     LotteryDao.saveWorkspace()
 

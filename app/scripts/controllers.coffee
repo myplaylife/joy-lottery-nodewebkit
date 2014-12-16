@@ -23,36 +23,38 @@ angular.module('app.controllers', [])
   $rootScope.isEscReady = true
 
   $scope.keydown = (event) ->
-
     # delete key
-    if $rootScope.modalOpen and (event.keyCode == 8)
+    # 不支持delete 键
+    if event.keyCode == 8
       event.preventDefault()
       return
 
-    LotteryRoute.route event
+    # 正在抽奖时，只有空格键会得到相应
+    if !$rootScope.Workspace.activate or (event.keyCode == 32)
+      LotteryRoute.route event
 
-    # 抽奖的动作，1000ms之内不能执行第二次
-    if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
-      if !$rootScope
-        alert '请等待数据加载'
+      # 抽奖的动作，1000ms之内不能执行第二次
+      if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
+        if !$rootScope
+          alert '请等待数据加载'
 
-      if !$rootScope.Workspace.activate
-        WorkspaceService.start()
-      else
-        WorkspaceService.stop()
+        if !$rootScope.Workspace.activate
+          WorkspaceService.start()
+        else
+          WorkspaceService.stop()
 
-      $rootScope.isAct = false
-      $rootScope.actScope.rod = "images/rod_2.gif"
-      $timeout ( ->
-        $rootScope.isAct = true
-        $rootScope.actScope.rod = "images/rod_1.png"
-      ), 1000
+        $rootScope.isAct = false
+        $rootScope.actScope.rod = "images/rod_2.gif"
+        $timeout ( ->
+          $rootScope.isAct = true
+          $rootScope.actScope.rod = "images/rod_1.png"
+        ), 1000
 
 
-    # esc
-    # esc 1000ms之内也不能执行两次
-    if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
-      $location.path '/welcome'
+      # esc
+      # esc 1000ms之内也不能执行两次
+      if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
+        $location.path '/welcome'
 
 ])
 
