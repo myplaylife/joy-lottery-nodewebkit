@@ -16,8 +16,9 @@ angular.module('app.services', [])
   '$route'
   'LotteryDao'
   '$modal'
+  '$timeout'
 
-  ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal) ->
+  ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal, $timeout) ->
 
     "redirect_rule" : config.redirect
 
@@ -25,27 +26,26 @@ angular.module('app.services', [])
       if event.altKey
         fs = require 'fs'
 
-        # alt + f
-        # if event.keyCode == 70
-          # gui = require('nw.gui')
-          # win = gui.Window.get()
-          # alert win.isFullscreen
-          # win.toggleKioskMode()
-          # win.enterFullscreen()
-
         # alt + o
         if ($location.path() == '/act') and (event.keyCode == 79)
           $rootScope.modalInstance = $modal.open
             templateUrl : "/partials/display.html"
             controller : "DisplayCtrl"
-            size : "bg"
+            windowClass : "window_class"
             resolve :
               prize : ->
                 WorkspaceService.getActivePrize()
           $rootScope.modalInstance.result.then(
             -> ''
             ,
-            -> $rootScope.modalOpen = false
+            ->
+              $rootScope.modalOpen = false
+              # esc 键，1000ms之内不能连按两次
+              $rootScope.isEscReady = false
+              $timeout ( ->
+                $rootScope.isEscReady = true
+              ), 1000
+
             windowClass : ".window_class"
           )
           return
@@ -348,5 +348,32 @@ angular.module('app.services', [])
         return false
 
     return true
+
+])
+
+.factory('UIService', [
+  '$rootScope'
+
+($rootScope) ->
+  'actSelfAdaption' : ->
+    $('.act_bg').css 'height', window.screen.height
+    $('.act_bg').css 'width', window.screen.width
+    standard = 1280 / 800
+    $('.draw_bg').css 'height', window.screen.width / standard
+    $('.draw_bg').css 'width', window.screen.width
+    # if window.screen.width / window.screen.height > standard
+    #   $('.draw_bg').css 'height', window.screen.width / standard
+    #   $('.draw_bg').css 'width', window.screen.width
+    # else if window.screen.width / window.screen.height < standard
+    #   $('.draw_bg').css 'height', window.screen.width * standard
+    #   $('.draw_bg').css 'width', window.screen.width
+    # else
+    #   $('.draw_bg').css 'height', window.screen.height
+    #   $('.draw_bg').css 'width', window.screen.width
+    $('body').css 'font-size', window.screen.width * 12 / 1280
+
+  'winnerListSelfAdaption' : ->
+    $('.winner_list_bg').css 'width', window.screen.width
+    $('.winner_list_bg').css 'height', window.screen.height
 
 ])

@@ -20,19 +20,18 @@ angular.module('app.controllers', [])
   $rootScope.loaded = false
 
   $rootScope.isAct = true
+  $rootScope.isEscReady = true
 
   $scope.keydown = (event) ->
 
     # delete key
-    if $rootScope.modalOpen or (event.keyCode == 8)
+    if $rootScope.modalOpen and (event.keyCode == 8)
       event.preventDefault()
       return
 
     LotteryRoute.route event
 
     # 抽奖的动作，1000ms之内不能执行第二次
-    $rootScope.timer = null
-    $timeout.cancel $rootScope.timer if $rootScope.timer
     if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
       if !$rootScope
         alert '请等待数据加载'
@@ -44,13 +43,15 @@ angular.module('app.controllers', [])
 
       $rootScope.isAct = false
       $rootScope.actScope.rod = "images/rod_2.gif"
-      timer = $timeout ( ->
+      $timeout ( ->
         $rootScope.isAct = true
         $rootScope.actScope.rod = "images/rod_1.png"
       ), 1000
 
 
-    if (event.keyCode == 27)
+    # esc
+    # esc 1000ms之内也不能执行两次
+    if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
       $location.path '/welcome'
 
 ])
@@ -72,6 +73,9 @@ angular.module('app.controllers', [])
       WorkspaceService.updatePathConfig()
       LotteryDao.getBaseData()
 
+  $(".welcome_bg").css "width", window.screen.width
+  $(".welcome_bg").css "height", window.screen.height
+
 ])
 
 .controller('ActCtrl', [
@@ -80,10 +84,17 @@ angular.module('app.controllers', [])
   'WorkspaceService'
   'LotteryDao'
   '$modal'
+  'UIService'
 
-($rootScope, $scope, WorkspaceService, LotteryDao, $modal) ->
+($rootScope, $scope, WorkspaceService, LotteryDao, $modal, UIService) ->
 
   $scope.prize = WorkspaceService.getActivePrize()
+
+  $scope.prize_desc = $scope.prize.desc
+  if $scope.prize.desc.length < 47
+    $scope.prize_desc = $scope.prize.desc
+  else
+    $scope.prize_desc = $scope.prize.desc.substring(0, 46) + "..."
 
   $rootScope.actScope = $scope
 
@@ -99,32 +110,45 @@ angular.module('app.controllers', [])
           style = 'draw_once_single_chosen_more_10'
         else
           style = 'draw_once_single_done_more_10'
-      else
+      else if $scope.prize.slots.length > 6
         if slot.state == 2
           style = 'draw_once_single_chosen'
         else
           style = 'draw_once_single_done'
+      else
+        if slot.state == 2
+          style = 'draw_once_single_chosen_less_7'
+        else
+          style = 'draw_once_single_done_less_7'
     else
       if !slot.started
         # 如果只有一个奖品，返回大图标
         if $scope.prize.slots.length == 1
           style = "draw_multi_single_number_big"
-        else
+        else if $scope.prize.slots.length > 3
           style = "draw_multi_single_number"
+        else
+          style = "draw_multi_single_number_medium"
       else if (slot.state == 0) or (slot.state == 1)
         if $scope.prize.slots.length == 1
           style = "draw_multi_single_chosen_big"
-        else
+        else if $scope.prize.slots.length > 3
           style = 'draw_multi_single_chosen'
+        else
+          style = 'draw_multi_single_chosen_medium'
       else if slot.state == 2
         if $scope.prize.slots.length == 1
           style = "draw_multi_single_redraw_big"
-        else
+        else if $scope.prize.slots.length > 3
           style = 'draw_multi_single_redraw'
+        else
+          style = 'draw_multi_single_redraw_medium'
 
   $scope.rod = "images/rod_1.png"
 
   $scope.space = "&nbsp;"
+
+  UIService.actSelfAdaption();
 
 ])
 
@@ -134,10 +158,11 @@ angular.module('app.controllers', [])
   'prize'
   '$rootScope'
 
-($scope, $modalInstance, prize, $rootScope) ->
+($scope, $modalInstance, prize, $rootScope, UIService) ->
 
   $scope.prize = prize
   $rootScope.modalOpen = true
+
 
 ])
 
@@ -145,10 +170,13 @@ angular.module('app.controllers', [])
   '$rootScope'
   '$scope'
   'WorkspaceService'
+  'UIService'
 
-($rootScope, $scope, WorkspaceService) ->
+($rootScope, $scope, WorkspaceService, UIService) ->
 
   $scope.prizes = $rootScope.Workspace.prizes
+
+  UIService.winnerListSelfAdaption()
 
 ])
 
