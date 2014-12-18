@@ -375,6 +375,7 @@ angular.module('app.services', [])
     standard = 1280 / 800
     $('.draw_bg').css 'height', window.screen.width / standard
     $('.draw_bg').css 'width', window.screen.width
+    $('.title_bg').css 'width', window.screen.width
     # if window.screen.width / window.screen.height > standard
     #   $('.draw_bg').css 'height', window.screen.width / standard
     #   $('.draw_bg').css 'width', window.screen.width
