@@ -23,39 +23,48 @@ angular.module('app.controllers', [])
   $rootScope.isEscReady = true
 
   $scope.keydown = (event) ->
-    # delete key
-    # 不支持delete 键
-    if event.keyCode == 8
+    # 在非manage页，禁用 delete 键
+    if event.keyCode == 8 and $location.path() != '/manage'
       event.preventDefault()
       return
 
-    # 正在抽奖时，只有空格键会得到相应
+    # 模态窗口打开的时候，如果不是esc，就不向下传递
+    if $rootScope.modalOpen and event.keyCode != 27
+      event.preventDefault()
+      return
+
+    # 正在抽奖时，如果不是空格键，就不向下传递
     workspace_activate = if !$rootScope.Workspace then false else $rootScope.Workspace.activate
-    if !workspace_activate or (event.keyCode == 32)
-      LotteryRoute.route event
-
-      # 抽奖的动作，1000ms之内不能执行第二次
-      if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
-        if !$rootScope
-          alert '请等待数据加载'
-
-        if !$rootScope.Workspace.activate
-          WorkspaceService.start()
-        else
-          WorkspaceService.stop()
-
-        $rootScope.isAct = false
-        $rootScope.actScope.rod = "images/rod_2.gif"
-        $timeout ( ->
-          $rootScope.isAct = true
-          $rootScope.actScope.rod = "images/rod_1.png"
-        ), 1000
+    if workspace_activate and event.keyCode != 32
+      event.preventDefault()
+      return
 
 
-      # esc
-      # esc 1000ms之内也不能执行两次
-      if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
-        $location.path '/welcome'
+    # 正在抽奖时，只有空格键会得到相应
+    LotteryRoute.route event
+
+    # 抽奖的动作，1000ms之内不能执行第二次
+    if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
+      if !$rootScope
+        alert '请等待数据加载'
+
+      if !$rootScope.Workspace.activate
+        WorkspaceService.start()
+      else
+        WorkspaceService.stop()
+
+      $rootScope.isAct = false
+      $rootScope.actScope.rod = "images/rod_2.gif"
+      $timeout ( ->
+        $rootScope.isAct = true
+        $rootScope.actScope.rod = "images/rod_1.png"
+      ), 1000
+
+
+    # esc
+    # esc 1000ms之内也不能执行两次
+    if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
+      $location.path '/welcome'
 
 ])
 
