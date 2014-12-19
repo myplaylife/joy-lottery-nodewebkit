@@ -30,7 +30,8 @@ angular.module('app.controllers', [])
       return
 
     # 正在抽奖时，只有空格键会得到相应
-    if !$rootScope.Workspace.activate or (event.keyCode == 32)
+    workspace_activate = if !$rootScope.Workspace then false else $rootScope.Workspace.activate
+    if !workspace_activate or (event.keyCode == 32)
       LotteryRoute.route event
 
       # 抽奖的动作，1000ms之内不能执行第二次
