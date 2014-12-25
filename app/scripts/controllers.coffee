@@ -195,8 +195,21 @@ angular.module('app.controllers', [])
       if prize.name.length > 10
         prize.name = prize.name.substring(0, 9) + "..."
       temp.push prize
-  # 正序
-  $scope.prizes = temp.reverse()
+  # 合并相同名称的奖项
+  temp_merge = []
+  for prize_temp in temp
+    isMerge = false
+    for prize_temp_merge in temp_merge
+      if prize_temp_merge.name == prize_temp.name
+        isMerge = true
+        for slot in prize_temp.slots
+          prize_temp_merge.slots.push slot
+        break
+    if !isMerge
+      temp_merge.push prize_temp
+
+  # 变成正序
+  $scope.prizes = temp_merge.reverse()
 
   UIService.winnerListSelfAdaption()
 
