@@ -83,8 +83,8 @@ html, body {
 }
 .prize_lead {
   font-size: 150%;
-  font-weight: 200;
-  line-height: 2;
+  font-weight: 400;
+  line-height: 1.5;
 }
 .prize_description {
 }
@@ -188,6 +188,7 @@ html, body {
 .draw_image {
   text-align: center;
   font-size: 333.3%;
+  font-weight: 900;
   color: #860000;
   display: inline-block;
   vertical-align: middle;
@@ -216,44 +217,44 @@ html, body {
   margin: 2% 2.2%;
 }
 .draw_multi_single_number {
-  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @small_width, @small_height, 300%, 12%);
   margin-top: 8%;
 }
 .draw_multi_single_chosen {
-  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @small_width, @small_height, 300%, 12%);
   margin-top: 8%;
 }
 .draw_multi_single_redraw {
-  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @small_width, @small_height, 300%, 12%);
   margin-top: 8%;
 }
 .draw_multi_single_number_big {
-  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @big_width, @big_height, 500%, 19%);
+  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @big_width, @big_height, 450%, 19%);
   position: relative;
   top: -5%;
 }
 .draw_multi_single_chosen_big {
-  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @big_width, @big_height, 500%, 19%);
+  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @big_width, @big_height, 450%, 19%);
   position: relative;
   top: -5%;
 }
 .draw_multi_single_redraw_big {
-  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @big_width, @big_height, 500%, 19%);
+  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @big_width, @big_height, 450%, 19%);
   position: relative;
   top: -5%;
 }
 .draw_multi_single_number_medium {
-  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_ready.png), @small_width, @small_height, 300%, 12%);
   position: relative;
   top: -5%;
 }
 .draw_multi_single_chosen_medium {
-  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_done.png), @small_width, @small_height, 300%, 12%);
   position: relative;
   top: -5%;
 }
 .draw_multi_single_redraw_medium {
-  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @small_width, @small_height, 333.3%, 12%);
+  .draw_multi_single_style(url(../images/draw_multi_box_redraw.png), @small_width, @small_height, 300%, 12%);
   position: relative;
   top: -5%;
 }
@@ -286,8 +287,8 @@ html, body {
   border: 0;
 }
 .celebrate > img {
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
   border: 0;
 }
 // list.jade
@@ -307,6 +308,8 @@ html, body {
   width: 100%;
   height: 100%;
   padding-top: 1.7%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .prize_list {
   text-align: center;
@@ -327,7 +330,7 @@ html, body {
 }
 .prize_winners > ul > li {
   color: red;
-  font-size: 250%;
+  font-size: 200%;
   width: 16.9%;
 }
 // display.jade modal
@@ -347,4 +350,63 @@ html, body {
   font-family: BiauKai;
   padding: 30px;
   background-image: url("../images/prize_bg.png");
+}
+
+// list-toomuch
+.winner_list_toomuch_bg {
+  .bg;
+}
+.winner_list_toomuch_title_bg {
+  width: 100%;
+  height: 15.6%;
+  background-image: url("../images/list_toomuch_title.png");
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-position: center;
+}
+.winner_list_toomuch {
+  width: 100%;
+  height: 84.4%;
+}
+.winner_list_toomuch_prize {
+  width: 50%;
+  height: 10%;
+  float: left;
+}
+.winner_list_toomuch_prize_title {
+  text-align: right;
+  padding-right: 1%;
+  color: yellow;
+  line-height: 120%;
+  font-size: 200%;
+  width: 22%;
+  float: left;
+}
+.winner_list_toomuch_prize_title_one_line {
+  .winner_list_toomuch_prize_title;
+  padding-top: 3%;
+}
+.winner_list_toomuch_prize_title_two_line {
+  .winner_list_toomuch_prize_title;
+  padding-top: 1%;
+}
+.winner_list_toomuch_prize_number {
+  width: 39%;
+  height: 100%;
+  background-image: url("../images/list_toomuch_background.png");
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center;
+  background-size: 100% 100%;
+  float: left;
+  padding: 1%;
+}
+.winner_list_toomuch_prize_number_single {
+  color: red;
+  width: 33.3%;
+  font-size: 250%;
+  font-weight: bold;
+  padding: 3% 0;
+  float: left;
+  text-align: center;
 }

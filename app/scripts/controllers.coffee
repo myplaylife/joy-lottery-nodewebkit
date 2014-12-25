@@ -106,7 +106,8 @@ angular.module('app.controllers', [])
   if $scope.prize.desc.length < 47
     $scope.prize_desc = $scope.prize.desc
   else
-    $scope.prize_desc = $scope.prize.desc.substring(0, 46) + "..."
+    $scope.prize_desc = $scope.prize.desc.substring(0, 63) + "..."
+    # $scope.prize_desc = $scope.prize.desc
 
   $rootScope.actScope = $scope
 
@@ -186,9 +187,24 @@ angular.module('app.controllers', [])
 
 ($rootScope, $scope, WorkspaceService, UIService) ->
 
-  $scope.prizes = $rootScope.Workspace.prizes
+  # 倒序
+  # $scope.prizes = $rootScope.Workspace.prizes
+  temp = []
+  for prize in $rootScope.Workspace.prizes
+    if WorkspaceService.isPrizeDone prize
+      if prize.name.length > 10
+        prize.name = prize.name.substring(0, 9) + "..."
+      temp.push prize
+  # 正序
+  $scope.prizes = temp.reverse()
 
   UIService.winnerListSelfAdaption()
+
+  $scope.getToomuchTitleClass = (prize_name) ->
+    if prize_name.length > 5
+      style = "winner_list_toomuch_prize_title_two_line"
+    else
+      style = "winner_list_toomuch_prize_title_one_line"
 
 ])
 

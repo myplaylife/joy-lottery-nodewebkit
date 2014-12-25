@@ -20,8 +20,6 @@ angular.module('app.services', [])
 
   ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal, $timeout) ->
 
-    "redirect_rule" : config.redirect
-
     "route" : (event) ->
       if event.altKey
         fs = require 'fs'
@@ -74,7 +72,7 @@ angular.module('app.services', [])
             $rootScope.Workspace.activePrizeId = WorkspaceService.setActivePrizeId true
             $route.reload()
 
-        $location.path this.redirect_rule[$location.path()][event.keyCode]
+        $location.path $rootScope.Workspace.redirect_rule[$location.path()][event.keyCode]
 
 ])
 
@@ -129,6 +127,7 @@ angular.module('app.services', [])
     # 6.生成奖槽，奖槽应该由编号、中奖号码、定时器、是否被激活等项组成
     #   定时器在抽奖的时候
     'initWorkspace' : (saveWorkspace) ->
+      redirect_rule = if $rootScope.BaseData.useToomuchListPage then config.redirect_toomuch else config.redirect
       $rootScope.Workspace =
         'prizes'          : $rootScope.BaseData.prizes
         'baseCandidates'  : $rootScope.BaseData.baseCandidates
@@ -136,6 +135,8 @@ angular.module('app.services', [])
         'waivers'         : []
         'candidates'      : []
         'activate'        : false
+        'redirect_rule'   : redirect_rule
+        'useToomuchListPage' : $rootScope.BaseData.useToomuchListPage
 
       for prize in $rootScope.Workspace.prizes
         prize.image = $rootScope.ImagePath + "/" + prize.image
@@ -311,7 +312,7 @@ angular.module('app.services', [])
         $timeout ( ->
           $(".celebrate").css 'display', 'none'
           $rootScope.actScope.celebrate_gif = 'images/transparent.png'
-        ), 1000
+        ), 1240
     ), 100
 
     # $rootScope.Workspace.candidates = this.candidatesNumbers()
@@ -355,12 +356,18 @@ angular.module('app.services', [])
       if !fs.existsSync $rootScope.WorkspacePath
         fs.mkdirSync $rootScope.WorkspacePath
 
+  # 用于判断是否离开本页用，所以，如果还没开始抽，也可认为其可以离开
   'isCurrentPrizeDone' : ->
     prize = this.getActivePrize()
     for slot in prize.slots
       if slot.state == 2
         return false
+    return true
 
+  'isPrizeDone' : (prize) ->
+    for slot in prize.slots
+      if (slot.state == 2) or (slot.state == 0)
+        return false
     return true
 
 ])
@@ -390,5 +397,7 @@ angular.module('app.services', [])
   'winnerListSelfAdaption' : ->
     $('.winner_list_bg').css 'width', window.screen.width
     $('.winner_list_bg').css 'height', window.screen.height
+    $('.winner_list_toomuch_bg').css 'width', window.screen.width
+    $('.winner_list_toomuch_bg').css 'height', window.screen.height
 
 ])

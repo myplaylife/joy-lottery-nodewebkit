@@ -1,7 +1,7 @@
 # 37:left 38:up 39:right 40:down
 # 32:space
 config =
-  redirect :
+  "redirect" :
     "/welcome" :
       37 : "/manage"
       39 : "/act"
@@ -17,6 +17,24 @@ config =
     "/help" :
       38 : "/manage"
       40 : "/manage"
+  ,
+  "redirect_toomuch" :
+    "/welcome" :
+      37 : "/manage"
+      39 : "/act"
+    "/act" :
+      40 : "/list-toomuch"
+      38 : "/list-toomuch"
+    "/list-toomuch" :
+      38 : "/act"
+      40 : "/act"
+    "/manage" :
+      38 : "/help"
+      40 : "/help"
+    "/help" :
+      38 : "/manage"
+      40 : "/manage"
+
 
 ConfigPath = './JoyLotteryPath'
 BasedataFile = '/basedata.json'

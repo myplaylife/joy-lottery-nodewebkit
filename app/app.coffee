@@ -26,6 +26,7 @@ App.config([
 
     .when('/welcome', {templateUrl: '/partials/welcome.html', controller: 'WelcomeCtrl'})
     .when('/list', {templateUrl: '/partials/list.html', controller: 'ListCtrl'})
+    .when('/list-toomuch', {templateUrl: '/partials/list-toomuch.html', controller: 'ListCtrl'})
     .when('/act', {templateUrl: '/partials/act.html', controller: 'ActCtrl'})
     .when('/manage', {templateUrl: '/partials/manage.html', controller: 'ManageCtrl'})
     .when('/help', {templateUrl: '/partials/help.html', controller: 'HelpCtrl'})
