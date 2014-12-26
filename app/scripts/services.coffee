@@ -34,6 +34,7 @@ angular.module('app.services', [])
           # 如果是神秘奖，而且已经展示过大图，那么抽奖页的神秘图片应该换成原图
           if prize.isMystery and WorkspaceService.isPrizeDone(prize)
             prize.showImage = true
+            LotteryDao.saveWorkspace()
           $rootScope.modalInstance = $modal.open
             templateUrl : "/partials/display.html"
             controller : "DisplayCtrl"
@@ -158,6 +159,7 @@ angular.module('app.services', [])
         if prize.isHaveFullscreenImage
           prize.fullscreenImage = $rootScope.ImagePath + "/" + prize.fullscreenImage
         prize.started = false
+        prize.showImage = false
         prize.slots = []
         for i in [1..prize.capacity]
           slot =
