@@ -173,7 +173,6 @@ html, body {
   line-height: 170%;
   font-size: 400%;
   background-size: 100% 100%;
-
 }
 .draw_once_single_done_less_7 {
   .draw_once_single_done_more_10;
@@ -184,6 +183,20 @@ html, body {
   .draw_once_single_chosen_more_10;
   .draw_once_single_less_10;
   .draw_once_single_less_7;
+}
+.draw_once_single_done_less_3 {
+  .draw_once_single_done_more_10;
+  .draw_once_single_less_10;
+  .draw_once_single_less_7;
+  position: relative;
+  top: -15%;
+}
+.draw_once_single_chosen_less_3 {
+  .draw_once_single_chosen_more_10;
+  .draw_once_single_less_10;
+  .draw_once_single_less_7;
+  position: relative;
+  top: -15%;
 }
 .draw_image {
   text-align: center;
@@ -317,13 +330,19 @@ html, body {
   position: relative;
   left: 2%;
 }
+.prize_title {
+  color: #3a1b04;
+  line-height: 120%;
+  font-size: 200%;
+  font-weight: bold;
+}
 .prize_title > img {
   width: 23.4%;
 }
 .prize_winners {
-  background-image: url(../images/winner_list_number_bg_6.png);
-  background-size: 100% 100%;
-  background-origin: padding-box;
+  // background-image: url(../images/winner_list_number_bg_6.png);
+  // background-size: 100% 100%;
+  // background-origin: padding-box;
 }
 .prize_winners > ul {
   margin: 1.7% 1.5%;
@@ -351,6 +370,11 @@ html, body {
   padding: 30px;
   background-image: url("../images/prize_bg.png");
 }
+// author.jade modal
+.fullscreen_image {
+  width: 100%;
+  height: 100%;
+}
 
 // list-toomuch
 .winner_list_toomuch_bg {
@@ -367,6 +391,8 @@ html, body {
 .winner_list_toomuch {
   width: 100%;
   height: 84.4%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .winner_list_toomuch_prize {
   width: 50%;

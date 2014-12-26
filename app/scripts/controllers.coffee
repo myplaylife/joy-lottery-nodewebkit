@@ -39,10 +39,6 @@ angular.module('app.controllers', [])
       event.preventDefault()
       return
 
-
-    # 正在抽奖时，只有空格键会得到相应
-    LotteryRoute.route event
-
     # 抽奖的动作，1000ms之内不能执行第二次
     if (event.keyCode == 32) and ($location.path() == '/act') and $rootScope.isAct
       if !$rootScope
@@ -60,11 +56,21 @@ angular.module('app.controllers', [])
         $rootScope.actScope.rod = "images/rod_1.png"
       ), 1000
 
-
     # esc
     # esc 1000ms之内也不能执行两次
+    if ($location.path() == '/fullscreen-image') and $rootScope.isEscReady and (event.keyCode == 27)
+      $location.path '/act'
+      $rootScope.isEscReady = false
+      $timeout ( ->
+        $rootScope.isEscReady = true
+      ), 1000
+      return
     if (event.keyCode == 27) and !$rootScope.modalOpen and $rootScope.isEscReady
       $location.path '/welcome'
+      return
+
+    # 正在抽奖时，只有空格键会得到相应
+    LotteryRoute.route event
 
 ])
 
@@ -76,6 +82,9 @@ angular.module('app.controllers', [])
 
 ($rootScope, $scope, WorkspaceService, LotteryDao) ->
 
+  $(".welcome_bg").css "width", window.screen.width
+  $(".welcome_bg").css "height", window.screen.height
+
   fs = require 'fs'
 
   if fs.existsSync ConfigPath
@@ -84,9 +93,6 @@ angular.module('app.controllers', [])
     if !$rootScope.loaded
       WorkspaceService.updatePathConfig()
       LotteryDao.getBaseData()
-
-  $(".welcome_bg").css "width", window.screen.width
-  $(".welcome_bg").css "height", window.screen.height
 
 ])
 
@@ -101,6 +107,7 @@ angular.module('app.controllers', [])
 ($rootScope, $scope, WorkspaceService, LotteryDao, $modal, UIService) ->
 
   $scope.prize = WorkspaceService.getActivePrize()
+  $scope.mysteryImage = $rootScope.Workspace.mysteryImage
 
   $scope.prize_desc = $scope.prize.desc
   if $scope.prize.desc.length < 47
@@ -128,11 +135,16 @@ angular.module('app.controllers', [])
           style = 'draw_once_single_chosen'
         else
           style = 'draw_once_single_done'
-      else
+      else if $scope.prize.slots.length > 2
         if slot.state == 2
           style = 'draw_once_single_chosen_less_7'
         else
           style = 'draw_once_single_done_less_7'
+      else
+          if slot.state == 2
+            style = 'draw_once_single_chosen_less_3'
+          else
+            style = 'draw_once_single_done_less_3'
     else
       if !slot.started
         # 如果只有一个奖品，返回大图标
@@ -176,7 +188,6 @@ angular.module('app.controllers', [])
   $scope.prize = prize
   $rootScope.modalOpen = true
 
-
 ])
 
 .controller('ListCtrl', [
@@ -184,37 +195,43 @@ angular.module('app.controllers', [])
   '$scope'
   'WorkspaceService'
   'UIService'
+  'Util'
 
-($rootScope, $scope, WorkspaceService, UIService) ->
+($rootScope, $scope, WorkspaceService, UIService, Util) ->
 
   # 倒序
   # $scope.prizes = $rootScope.Workspace.prizes
+
   temp = []
   for prize in $rootScope.Workspace.prizes
     if WorkspaceService.isPrizeDone prize
-      if prize.name.length > 10
-        prize.name = prize.name.substring(0, 9) + "..."
-      temp.push prize
-  # 合并相同名称的奖项
-  temp_merge = []
-  for prize_temp in temp
-    isMerge = false
-    for prize_temp_merge in temp_merge
-      if prize_temp_merge.name == prize_temp.name
-        isMerge = true
-        for slot in prize_temp.slots
-          prize_temp_merge.slots.push slot
-        break
-    if !isMerge
-      temp_merge.push prize_temp
-
-  # 变成正序
-  $scope.prizes = temp_merge.reverse()
+      temp_prize = Util.clone prize
+      if temp_prize.name.length > 10
+        temp_prize.name = temp_prize.name.substring(0, 9) + "..."
+      temp.push temp_prize
+  # 是否根据奖项名称（name）合并中奖号码
+  if $rootScope.Workspace.isMergeSlotsByName
+    # 合并相同名称的奖项
+    temp_merge = []
+    for prize_temp in temp
+      isMerge = false
+      for prize_temp_merge in temp_merge
+        if prize_temp_merge.name == prize_temp.name
+          isMerge = true
+          for slot in prize_temp.slots
+            prize_temp_merge.slots.push slot
+          break
+      if !isMerge
+        temp_merge.push prize_temp
+    # 是否变成正序
+    $scope.prizes = if $rootScope.Workspace.isListDesc then temp_merge.reverse() else temp_merge
+  else
+    $scope.prizes = if $rootScope.Workspace.isListDesc then temp.reverse() else temp
 
   UIService.winnerListSelfAdaption()
 
   $scope.getToomuchTitleClass = (prize_name) ->
-    if prize_name.length > 5
+    if prize_name.length > 6
       style = "winner_list_toomuch_prize_title_two_line"
     else
       style = "winner_list_toomuch_prize_title_one_line"
@@ -264,4 +281,15 @@ angular.module('app.controllers', [])
 
 ($scope) ->
   $scope.help = help
+])
+
+.controller('FullscreenImageCtrl', [
+  '$scope'
+  'WorkspaceService'
+  'UIService'
+
+($scope, WorkspaceService, UIService) ->
+  $scope.image =  WorkspaceService.getActivePrize().fullscreenImage
+
+  UIService.fullscreenImagePageSelfAdaption()
 ])

@@ -3,7 +3,8 @@
     .winner_list 
       .prize_list(ng-repeat='prize in prizes')
         .prize_title
-          img(ng-src="{{prize.titleImage}}")
+          //- img(ng-src="{{prize.titleImage}}")
+          strong {{prize.listPrizeTitle}}
         .prize_winners
           ul.list-unstyled.list-inline
             li(ng-repeat='slot in prize.slots')

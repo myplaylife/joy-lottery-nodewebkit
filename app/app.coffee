@@ -30,6 +30,7 @@ App.config([
     .when('/act', {templateUrl: '/partials/act.html', controller: 'ActCtrl'})
     .when('/manage', {templateUrl: '/partials/manage.html', controller: 'ManageCtrl'})
     .when('/help', {templateUrl: '/partials/help.html', controller: 'HelpCtrl'})
+    .when('/fullscreen-image', {templateUrl: '/partials/fullscreen-image.html', controller: 'FullscreenImageCtrl'})
 
     # Catch all
     .otherwise({redirectTo: '/welcome'})

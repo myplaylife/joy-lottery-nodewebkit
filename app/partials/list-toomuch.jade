@@ -2,8 +2,8 @@
   .winner_list_toomuch_title_bg 
   .winner_list_toomuch 
     .winner_list_toomuch_prize(ng-repeat='prize in prizes')
-      div(ng-class="getToomuchTitleClass(prize.name)")
-        span {{prize.name}}
+      div(ng-class="getToomuchTitleClass(prize.listPrizeTitle)")
+        span(ng-bind-html="prize.listPrizeTitle")
       .winner_list_toomuch_prize_number_wrap
         .winner_list_toomuch_prize_number
           .winner_list_toomuch_prize_number_single(ng-repeat='slot in prize.slots', ng-if='$index < 3') 

@@ -6,7 +6,15 @@
       .prize_display.col-md-2
         .prize_display_title
         .prize_display_image
-          img.prize_image(ng-src="{{prize.image}}")
+          SWITCH(ng-switch, on="prize.isMystery")
+            WHEN(ng-switch-when="true")
+              SWITCH(ng-switch, on="prize.showImage")
+                WHEN(ng-switch-when="true")
+                  img.prize_image(ng-src="{{prize.image}}")
+                WHEN(ng-switch-default)
+                  img.prize_image(ng-src="{{mysteryImage}}")
+            WHEN(ng-switch-when="false")
+              img.prize_image(ng-src="{{prize.image}}")
         .prize_display_description
           p.prize_lead {{prize_desc}}
       .col-md-8.draw

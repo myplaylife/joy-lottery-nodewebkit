@@ -17,8 +17,9 @@ angular.module('app.services', [])
   'LotteryDao'
   '$modal'
   '$timeout'
+  'UIService'
 
-  ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal, $timeout) ->
+  ($location, WorkspaceService, $rootScope, $route, LotteryDao, $modal, $timeout, UIService) ->
 
     "route" : (event) ->
       if event.altKey
@@ -26,6 +27,13 @@ angular.module('app.services', [])
 
         # alt + o
         if ($location.path() == '/act') and (event.keyCode == 79) and !$rootScope.modalOpen
+          prize = WorkspaceService.getActivePrize()
+          # 假如是神秘奖品，没抽完之前不能alt+o
+          if prize.isMystery and !WorkspaceService.isPrizeDone(prize)
+            return
+          # 如果是神秘奖，而且已经展示过大图，那么抽奖页的神秘图片应该换成原图
+          if prize.isMystery and WorkspaceService.isPrizeDone(prize)
+            prize.showImage = true
           $rootScope.modalInstance = $modal.open
             templateUrl : "/partials/display.html"
             controller : "DisplayCtrl"
@@ -43,16 +51,19 @@ angular.module('app.services', [])
               $timeout ( ->
                 $rootScope.isEscReady = true
               ), 1000
-
             windowClass : ".window_class"
           )
+          return
+
+        # alt + t - 84
+        if ($location.path() == '/act') and (event.keyCode == 84) and WorkspaceService.getActivePrize().isHaveFullscreenImage and !$rootScope.modalOpen
+          $location.path '/fullscreen-image'
           return
 
         # alt + s
         if ($location.path() == '/act') and (event.keyCode == 83)
           LotteryDao.saveWorkspace()
           return
-
 
         if (!$rootScope.BasePath) or !(fs.existsSync $rootScope.BasePath)
           $location.path '/manage'
@@ -137,10 +148,15 @@ angular.module('app.services', [])
         'activate'        : false
         'redirect_rule'   : redirect_rule
         'useToomuchListPage' : $rootScope.BaseData.useToomuchListPage
+        'isMergeSlotsByName' : $rootScope.BaseData.isMergeSlotsByName
+        'isListDesc'     : $rootScope.BaseData.isListDesc
+        'mysteryImage'   : $rootScope.ImagePath + "/" + $rootScope.BaseData.mysteryImage
 
       for prize in $rootScope.Workspace.prizes
         prize.image = $rootScope.ImagePath + "/" + prize.image
         prize.titleImage = $rootScope.ImagePath + "/" + prize.titleImage
+        if prize.isHaveFullscreenImage
+          prize.fullscreenImage = $rootScope.ImagePath + "/" + prize.fullscreenImage
         prize.started = false
         prize.slots = []
         for i in [1..prize.capacity]
@@ -374,8 +390,10 @@ angular.module('app.services', [])
 
 .factory('UIService', [
   '$rootScope'
+  'WorkspaceService'
+  '$modal'
 
-($rootScope) ->
+($rootScope, WorkspaceService, $modal) ->
   'actSelfAdaption' : ->
     $('.act_bg').css 'height', window.screen.height
     $('.act_bg').css 'width', window.screen.width
@@ -399,5 +417,33 @@ angular.module('app.services', [])
     $('.winner_list_bg').css 'height', window.screen.height
     $('.winner_list_toomuch_bg').css 'width', window.screen.width
     $('.winner_list_toomuch_bg').css 'height', window.screen.height
+
+  'fullscreenImagePageSelfAdaption' : ->
+    $('.fullscreen_image').css 'height', window.screen.height
+    $('.fullscreen_image').css 'width', window.screen.width
+
+])
+
+.factory('Util', [
+  '$rootScope'
+
+($rootScope) ->
+
+  'clone' : (obj) ->
+    if not obj? or typeof obj isnt 'object'
+      return obj
+    if obj instanceof Date
+      return new Date(obj.getTime())
+    if obj instanceof RegExp
+      flags = ''
+      flags += 'g' if obj.global?
+      flags += 'i' if obj.ignoreCase?
+      flags += 'm' if obj.multiline?
+      flags += 'y' if obj.sticky?
+      return new RegExp(obj.source, flags)
+    newInstance = new obj.constructor()
+    for key of obj
+      newInstance[key] = this.clone obj[key]
+    return newInstance
 
 ])
