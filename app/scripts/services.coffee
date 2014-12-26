@@ -152,6 +152,8 @@ angular.module('app.services', [])
         'isMergeSlotsByName' : $rootScope.BaseData.isMergeSlotsByName
         'isListDesc'     : $rootScope.BaseData.isListDesc
         'mysteryImage'   : $rootScope.ImagePath + "/" + $rootScope.BaseData.mysteryImage
+        'welcomePageBackgroud' : $rootScope.ImagePath + "/" + $rootScope.BaseData.welcomePageBackgroud
+        'lotteryPageTitle'     : $rootScope.ImagePath + "/" + $rootScope.BaseData.lotteryPageTitle
 
       for prize in $rootScope.Workspace.prizes
         prize.image = $rootScope.ImagePath + "/" + prize.image

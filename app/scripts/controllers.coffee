@@ -94,6 +94,8 @@ angular.module('app.controllers', [])
       WorkspaceService.updatePathConfig()
       LotteryDao.getBaseData()
 
+  $(".welcome_bg").css "background-image", "url('" + $rootScope.Workspace.welcomePageBackgroud + "')"
+
 ])
 
 .controller('ActCtrl', [
@@ -174,6 +176,8 @@ angular.module('app.controllers', [])
   $scope.space = "&nbsp;"
 
   UIService.actSelfAdaption();
+
+  $(".title_bg").css "background-image", "url('" + $rootScope.Workspace.lotteryPageTitle + "')"
 
 ])
 
@@ -261,7 +265,6 @@ angular.module('app.controllers', [])
 
   $scope.$watch('BasePath', (path) ->
     fs = require 'fs'
-
     if fs.existsSync path + BasedataFile
       fs.writeFileSync ConfigPath, path
       $rootScope.BasePath = path
