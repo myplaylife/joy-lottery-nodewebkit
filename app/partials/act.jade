@@ -15,7 +15,7 @@
                   img.prize_image(ng-src="{{mysteryImage}}")
             WHEN(ng-switch-when="false")
               img.prize_image(ng-src="{{prize.image}}")
-        .prize_display_description
+        .prize_display_description(ng-if="prize.showPrizeDesc")
           p.prize_lead {{prize_desc}}
       .col-md-8.draw
         .rod_area
